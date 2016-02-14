@@ -1,39 +1,39 @@
 {
-  "name": "demo-bouncing-balls",
-  "version": "1.0.0",
-  "description": "WebGL demo of bouncing balls",
-  "devDependencies": {
-    "toloframework": "^0.30.23"
-  },
-  "scripts": {
-    "tfw": "node node_modules/toloframework/bin/tfw.js build dev watch",
-    "clean": "node node_modules/toloframework/bin/tfw.js clean",
-    "release": "node node_modules/toloframework/bin/tfw.js build version clean",
-    "test": "jasmine",
-    "test:dbg": "node --debug-brk node_modules/jasmine/bin/jasmine"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/tolokoban/demo-bouncing-balls.git"
-  },
-  "keywords": [
-    "algorithme"
-  ],
-  "author": "Tolokoban",
-  "license": "GPL-3.0",
-  "bugs": {
-    "url": "https://github.com/tolokoban/demo-bouncing-balls/issues"
-  },
-  "homepage": "https://github.com/tolokoban/demo-bouncing-balls",
-  "tfw": {
-    "modules": [],
-    "compile": {
-      "type": "firefoxos",
-      "files": [
-        "index.html$"
-      ]
+    "name": "demo-bouncing-balls",
+    "version": "1.0.1",
+    "description": "WebGL demo of bouncing balls",
+    "devDependencies": {
+        "toloframework": "^0.30.23"
     },
-    "output": "gh-pages"
-  },
-  "reservedModules": []
+    "scripts": {
+        "tfw": "node node_modules/toloframework/bin/tfw.js build dev watch",
+        "clean": "node node_modules/toloframework/bin/tfw.js clean",
+        "release": "node node_modules/toloframework/bin/tfw.js build version clean",
+        "test": "jasmine",
+        "test:dbg": "node --debug-brk node_modules/jasmine/bin/jasmine"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/tolokoban/demo-bouncing-balls.git"
+    },
+    "keywords": [
+        "algorithme"
+    ],
+    "author": "Tolokoban",
+    "license": "GPL-3.0",
+    "bugs": {
+        "url": "https://github.com/tolokoban/demo-bouncing-balls/issues"
+    },
+    "homepage": "https://github.com/tolokoban/demo-bouncing-balls",
+    "tfw": {
+        "modules": [],
+        "compile": {
+            "type": "firefoxos",
+            "files": [
+                "index.html$"
+            ]
+        },
+        "output": "gh-pages"
+    },
+    "reservedModules": []
 }

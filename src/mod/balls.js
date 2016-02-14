@@ -54,8 +54,12 @@ function createMat() {
     var vec = new THREE.Vector3( col.r, col.g, col.b );
     var mat = new THREE.ShaderMaterial({
         uniforms: {            
-            uni_Color: { type: "v3", value: vec }/*,
-            uni_Ratio: { type: "f", value: 1 }*/
+            uni_Color: { type: "v3", value: vec },
+            uni_Ratio: { type: "f", value: window.innerWidth / window.innerHeight },
+            uni_Alpha: { type: "f", value: 0 },
+            uni_Beta: { type: "f", value: 0 },
+            uni_Time: { type: "f", value: 0 },
+            uni_Speed: { type: "f", value: (Math.random() - .5) * 0.01 }
         },
         vertexShader: document.getElementById( 'vertex' ).textContent,
         fragmentShader: document.getElementById( 'fragment' ).textContent,
@@ -90,7 +94,7 @@ function createGeo() {
 /**
  * Bounces of the balls.
  */
-function moveBalls( time, delta ) {
+function moveBalls( time, delta, cameraMotion ) {
     delta = Math.min( 160, delta );
     var bx = bounds.x + .5;
     var bX = bounds.X - .5;
@@ -100,6 +104,7 @@ function moveBalls( time, delta ) {
     var bZ = bounds.Z - .5;
     var speed = 0.0002;
 
+    var ratio = window.innerWidth / window.innerHeight;
 
     balls.forEach(function (ball) {
         // Gravity.
@@ -107,6 +112,10 @@ function moveBalls( time, delta ) {
 
         // Move the ball.
         var mesh = ball.mesh;
+        mesh.material.uniforms.uni_Ratio.value = window.innerWidth / window.innerHeight;
+        mesh.material.uniforms.uni_Alpha.value = cameraMotion.alpha;
+        mesh.material.uniforms.uni_Beta.value = cameraMotion.beta;
+        mesh.material.uniforms.uni_Time.value = time;
         mesh.position.x = ball.x + ball.vx * delta * speed;
         mesh.position.y = ball.y + ball.vy * delta * speed;
         mesh.position.z = ball.z + ball.vz * delta * speed;

@@ -11,6 +11,7 @@ body {
 }
 
 header {
+    display: table;
     position: absolute;
     left: 0;
     top: 0;
@@ -23,3 +24,16 @@ header {
     background: rgba(0,0,0,.8);
     text-align: center;
 }
+
+header > div {
+    display: table-cell;
+    text-align: center;
+    vertical-align: center;
+}
+
+header > div:first-child {
+    width: 6rem;
+    text-align: left;
+    padding-left: .5rem;
+}
+

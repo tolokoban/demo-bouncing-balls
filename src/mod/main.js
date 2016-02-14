@@ -1,5 +1,10 @@
 var Balls = require("balls");
 
+var BALLS = 200;
+
+// Div where to put the frames per second.
+var fps = document.getElementById('fps');
+
 var cameraMotion = {
     alpha: 0,
     beta: Math.PI / 8,
@@ -21,7 +26,7 @@ document.body.appendChild( renderer.domElement );
 createFloorGrid();
 
 // Adding balls.
-Balls.create(400).forEach(function ( mesh ) {
+Balls.create( BALLS ).forEach(function ( mesh ) {
     scene.add( mesh );
 });
 
@@ -67,20 +72,30 @@ function onDocumentMouseMove( evt ) {
     var x = 2 * (evt.clientX / window.innerWidth) - 1;
     var y = 2 * (evt.clientY / window.innerHeight) - 1;
     cameraMotion.alpha = x * Math.PI;
-    cameraMotion.beta = (1 + y) * Math.PI / 5;
+    cameraMotion.beta = (1 + y) * Math.PI / 4;
 }
 
 
 
 var lastTime = 0;
+var fpsTime = 0;
+var nbFrames = 0;
 
 function anim( time ) {
     window.requestAnimationFrame( anim );
     if (!lastTime) {
         lastTime = time;
+        fpsTime = time;
+        nbFrames = 0;
         return;
     }
-    Balls.move( time, time - lastTime );
+    nbFrames++;
+    if (nbFrames == 10) {
+        fps.textContent = (10000 / (time - fpsTime)).toFixed(0) + " fps";
+        fpsTime = time;
+        nbFrames = 0;
+    }
+    Balls.move( time, time - lastTime, cameraMotion );
     moveCamera();
     lastTime = time;
     // Ask WebGL to refresh the screen.
