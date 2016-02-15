@@ -36,8 +36,8 @@ void main(void) {
 
   vec4 center = vec4( 0.0, 0.0, position.z, 1.0 );
   vec4 p = projectionMatrix * modelViewMatrix * center;
-  p.x += position.x;
-  p.y += position.y * uni_Ratio;
+  p.x += 2.0 * position.x / uni_Ratio;
+  p.y += 2.0 * position.y;
   
   gl_Position = p;
   var_Position = vec3(gl_Position);

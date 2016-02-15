@@ -10,6 +10,7 @@ uniform float uni_Alpha;
 uniform float uni_Beta;
 uniform float uni_Time;
 uniform float uni_Speed;
+uniform float uni_Flash;
 
 const float cst_LightValueFront = 0.9;
 const float cst_LightValueBack = 1.0;
@@ -89,6 +90,9 @@ void main(void) {
       color3 = color * (light3 + 1.0) / (t3 + 1.0);
     }
 
-    gl_FragColor = vec4( (color1 + color2 + color3) / 3.0, 1.0 );
+    color = (color1 + color2 + color3) / 3.0;
+    color = uni_Flash * vec3( 1.0, 1.0, 1.0 ) + (1.0 - uni_Flash) * color;
+    
+    gl_FragColor = vec4( color, 1.0 );
   }
 }

@@ -1,11 +1,13 @@
 <x-html title="Bouncing balls" app="main">
     <x-vertex-shader id="vertex">vertex.c</x-vertex-shader>
+    <x-vertex-shader id="vertex-impact">vertex-impact.c</x-vertex-shader>
     <x-fragment-shader id="fragment">fragment.c</x-fragment-shader>
+    <x-fragment-shader id="fragment-impact">fragment-impact.c</x-fragment-shader>
     <script src="three.min.js"></script>
 
     <header>
         <div id="fps"></div>
-        <div>Bouncing balls ( <i>move the mouse around </i> )</div>
+        <div>Bouncing balls ( <i>wheel to zoom</i> )</div>
         <div></div>
     </header>
 </x-html>
