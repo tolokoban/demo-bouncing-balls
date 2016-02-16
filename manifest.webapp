@@ -9,6 +9,6 @@
     "512": "/icon-512.png"
   },
   "name": "demo-bouncing-balls",
-  "version": "1.0.1",
+  "version": "1.0.6",
   "description": "WebGL demo of bouncing balls"
 }

@@ -38,11 +38,34 @@ void main(void) {
 
   vec4 center = vec4( 0.0, 0.0, position.z, 1.0 );
   vec4 p = projectionMatrix * modelViewMatrix * center;
-  p.x += position.x;
-  p.y += position.y * uni_Ratio;
+  p.x += 2.0 * position.x / uni_Ratio;
+  p.y += 2.0 * position.y;
   
   gl_Position = p;
   var_Position = vec3(gl_Position);
+}//]]></script>
+    <script id="vertex-impact" type="x-shader/x-vertex">//<![CDATA[
+varying vec2 var_XY;
+
+void main(void) {
+  float x = position.x;
+  float y = position.y;
+
+  if (x > 0.0) {
+    if (y > 0.0) {
+      var_XY = vec2( 1.0, 1.0 );
+    } else {
+      var_XY = vec2( 1.0, -1.0 );
+    }
+  } else {
+    if (y > 0.0) {
+      var_XY = vec2( -1.0, 1.0 );
+    } else {
+      var_XY = vec2( -1.0, -1.0 );
+    }
+  }
+
+  gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
 }//]]></script>
     <script id="fragment" type="x-shader/x-fragment">//<![CDATA[
 varying vec2 var_XY;
@@ -57,6 +80,7 @@ uniform float uni_Alpha;
 uniform float uni_Beta;
 uniform float uni_Time;
 uniform float uni_Speed;
+uniform float uni_Flash;
 
 const float cst_LightValueFront = 0.9;
 const float cst_LightValueBack = 1.0;
@@ -136,14 +160,49 @@ void main(void) {
       color3 = color * (light3 + 1.0) / (t3 + 1.0);
     }
 
-    gl_FragColor = vec4( (color1 + color2 + color3) / 3.0, 1.0 );
+    color = (color1 + color2 + color3) / 3.0;
+    color = uni_Flash * vec3( 1.0, 1.0, 1.0 ) + (1.0 - uni_Flash) * color;
+    
+    gl_FragColor = vec4( color, 1.0 );
+  }
+}//]]></script>
+    <script id="fragment-impact" type="x-shader/x-fragment">//<![CDATA[
+varying vec2 var_XY;
+
+uniform vec3 uni_Color;
+uniform float uni_Life;
+
+
+void main(void) {
+  float x = var_XY.x;
+  float y = var_XY.y;
+  float r = x*x + y*y;
+
+  if (r >= 1.0) {
+    gl_FragColor = vec4( 0.0, 0.0, 0.0, 0.0 );
+    return;
+  }
+
+  vec3 color = vec3( uni_Color );
+  
+  int idx = 0;
+  if (x > 0.0) idx = 1 - idx;
+  if (y > 0.0) idx = 1 - idx;
+  if (idx == 0) color = vec3( 1.0 - color.x, 1.0 - color.y, 1.0 - color.z );
+
+  if (r > 0.9 || abs(x) < 0.02 || abs(y) < 0.02) {
+    // Le liseré noir autour de la sphère est créé ainsi.
+    // En diminuant 0.9, on épaissit le trait.
+    gl_FragColor = vec4( color * 0.3, uni_Life );
+  }
+  else {
+    gl_FragColor = vec4( color, uni_Life );
   }
 }//]]></script>
     <script src="three.min.js"></script>
 
     <header>
         <div id="fps"></div>
-        <div>Bouncing balls ( <i>move the mouse around </i> )</div>
-        <div></div>
+        <div><b>Use wheel, swipe and double swipe</b></div>
     </header>
 </body></html>
