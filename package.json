@@ -1,6 +1,6 @@
 {
     "name": "demo-bouncing-balls",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "WebGL demo of bouncing balls",
     "devDependencies": {
         "toloframework": "^0.30.23"

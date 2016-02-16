@@ -2,11 +2,11 @@ exports.config={
     name:"demo-bouncing-balls",
     description:"WebGL demo of bouncing balls",
     author:"Tolokoban",
-    version:"1.0.0",
+    version:"1.0.2",
     major:1,
     minor:0,
-    revision:0,
-    date:new Date(2016,1,13,16,29,11)
+    revision:2,
+    date:new Date(2016,1,15,17,18,51)
 };
 var currentLang = null;
 exports.lang = function(lang) {
